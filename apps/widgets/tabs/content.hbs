@@ -1,0 +1,33 @@
+
+
+{{#each config.items}}
+	{{#unless hide_on_edit_page}}
+		<div class="z-depth-1" style="border:1px solid #ddd; padding:10px;background-color:#fafafa; margin:12px; {{#if title}}margin-top:32px;margin-bottom:42px;{{else}}margin-bottom:32px;{{/if}} ">
+			{{#if title}}
+				<span class="tab-label z-depth-1">&nbsp;<i style="color:#999" class="fa fa-folder-o"></i>&nbsp; {{title}} &nbsp;</span>
+			{{/if}}
+
+			{{#ifOp (get-by-index items 0 "widget") "==" "fieldset"}}
+				{{#each items}}
+					{{get-template . "content"}}
+					
+				{{/each}}
+			{{else}}
+				{{#unless hide_on_edit_page}}
+					<div style="border:1px solid #e0e0e0; background-color:#fff; margin-bottom:10px;padding:10px;" class="fieldset section ">
+						<table class="bordered highlight">
+						{{#each items}}
+							{{#unless hide_on_edit_page}}
+								<tr class="{{widget}}" data-name={{name}}><td>{{fieldLabel}}</td>
+								<td style="min-width:50%">{{get-template . "content"}}</td></tr>
+							{{/unless}}
+						{{/each}}
+						</table>
+					</div>
+				{{/unless}}
+			{{/ifOp}}
+		</div >
+	{{/unless}}
+{{/each}}
+
+{{!-- {{#unless config.hide_on_edit_page}} --}}

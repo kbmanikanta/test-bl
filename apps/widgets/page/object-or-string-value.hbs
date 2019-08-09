@@ -1,0 +1,12 @@
+
+{{#ifOp . "isstring"}}
+	{{{.}}}
+{{else}}
+	<table class="bordered highlight" style="">
+	{{#each . }}{{#ifOp @key "nonmeta"}}
+		<tr><td>{{prettyname @key}}</td>
+		<td>{{> page.object-or-string-value}}
+		</td></tr>
+	{{/ifOp}}{{/each}}
+	</table>
+{{/ifOp}}

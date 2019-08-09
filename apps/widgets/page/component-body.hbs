@@ -1,0 +1,44 @@
+
+
+{{!-- **************     FIRST SHOW FIELDS ************  --}}
+{{#if @component.hasDialog}}
+	
+	{{!-- Generate fields from widget, since dialog is defined  --}}
+	{{dialog-content-mode @component.type .}}
+
+{{else}}
+	{{!-- Spit out non-dialog fields, but only if this type is completely unregistered --}}
+	{{#ifnot @component.includes "||" @component.isECC}}
+		<table class="bordered highlight" style="margin-left:16px;margin-right:16px;;margin-top:8px;width:calc(100% - 32px);">
+			{{#each .}}{{#ifOp @key "nonmeta"}}
+				{{#unless sling:resourceType}}
+					<tr>
+						<td>{{prettyname @key}}</td>
+						<td>{{> page.object-or-string-value}}</td>
+					</tr>
+				{{/unless}}
+			{{/ifOp}}{{/each}}
+		</table>
+	{{/ifnot}}
+{{/if}}
+
+
+
+{{!-- ***************** NOW SHOW CHILD COMPONENTS ************ --}}
+{{#if @component.isECC}}
+	{{> page.component-outer-ul}}
+{{else}}
+
+	{{#if @component.includes}}
+	
+		{{#each @component.includes}} 
+		{{#unless hideEdit}}					
+			{{#component-config (lookup .. name) maxItems=maxItems type=type title=title icon=icon}}		
+				{{> page.component-outer-ul  bl:key=../name bl:rtypeTitle=../title}}			
+				
+			{{/component-config}}
+		{{/unless}}
+		{{/each}}
+
+	{{/if}}
+{{/if}}

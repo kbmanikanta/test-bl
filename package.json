@@ -1,0 +1,40 @@
+{
+  "name": "test-asset-build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "content.js",
+  "dependencies": {
+    "async": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "glob": "^7.1.1",
+    "json5": "^0.5.1",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.3",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.13",
+    "webpack-notifier": "^1.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "asset-watch": "webpack --progress --colors --watch",
+    "asset-build": "webpack",
+    "postinstall": "npm run asset-build"
+  },
+  "blacklight": {
+    "asset-watch": {
+      "folder": [
+        "public/js/modules",
+        "public/js/*.js",
+        "apps/widgets/**/client.js"
+      ]
+    }
+  },
+  "author": "",
+  "license": "ISC"
+}

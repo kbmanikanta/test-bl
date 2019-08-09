@@ -1,0 +1,18 @@
+
+
+<ul>
+\{{#each {{config.hbsValidName}} }} 
+	\{{#ifOp @key "nonmeta"}}
+	<li><span class="red-text text-darken-4">{{config.fieldLabel}} #\{{@index}}</span>
+		<table class="bordered highlighted" style="margin-bottom:14px;">
+		{{#each config.fieldConfigs}}
+	  		{{#ifOp @key "nonmeta"}}
+	  			<tr><td>{{fieldLabel}}</td><td>{{get-template . "content"}}</td></tr>
+	  		{{/ifOp}}
+  		{{/each}}
+  		</table>	
+	</li>
+	\{{/ifOp}}
+\{{/each}}
+</ul>
+

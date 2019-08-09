@@ -1,0 +1,22 @@
+{{#> page.layout this page-class="edit"	}}
+	{{#with ..}}
+		<div class="section" id="index-banner">
+			<div class="container">
+				<ul class="collapsible popout">
+
+					<li class="page-level-li" style="background-color:#FAFAFA; clear:both;">
+						<div class="collapsible-header blue accent-2  white-text active" style="padding:1rem;">
+							<h5 class="white-text" style="margin:0;">New page:&nbsp; Select page type</h5>
+						</div>
+						<div class="collapsible-body" style="background-color:#fafafa;">
+							<div id="bl-edit-dialog" class="bl-widget">
+								{{> blacklight.edit.select-child-component}}
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	{{/with}}
+{{/page.layout}}
+

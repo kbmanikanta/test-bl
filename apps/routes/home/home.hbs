@@ -1,0 +1,63 @@
+
+
+
+{{#> page.layout page-class="home landing"}}
+
+  <div class="section">
+    <div class="container">
+
+    <!-- Page Layout here -->
+    <div class="row">
+
+      <div class="col s12 m6 6"> 
+        <ul class="collection">
+          {{#each ../column1}}
+            <li class="collection-item avatar landing-link" data-link="{{link}}">
+              <i class="material-icons medium" style="{{#if iconRotate}}transform: rotate({{iconRotate}});{{/if}}">{{icon}}</i>
+              <span class="title">{{title}}</span>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+
+
+      <div class="col s12 m6 6"> 
+        <ul class="collection">
+          {{#each ../column2}}
+            <li class="collection-item avatar landing-link" data-link="{{link}}">
+              <i class="material-icons medium" style="{{#if iconRotate}}transform: rotate({{iconRotate}});{{/if}}">{{icon}}</i>
+              <span class="title">{{title}}</span>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+
+
+    </div>
+    </div>
+    </div>
+
+
+
+
+{{!-- 
+  <ul id="" class="fixed" style="width: 210px; top:66px;margin-top:1px;">
+    {{#each ../navItems}}
+      <li class="no-padding" style="padding:0">
+        <div class="collection with-header" style="margin-top:0; margin-bottom:0px;">
+          <a href="#" class="collection-header" style="font-size:1.2em; color:#fff; padding:4px; padding-left:8px; margin:0; display:block; background-color:#999">{{prettyname @key}}</a>
+            {{#if children}}
+                {{#each children}}
+                  <a href="{{../../../appsMount}}blacklight/edit/home/{{@../key}}/{{@key}}" class="collection-item" style="color:#777;">{{prettyname @key}}</a>
+                {{/each}}
+            {{/if}}
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+
+ --}}
+
+ 
+{{/page.layout}}
+

@@ -1,0 +1,44 @@
+{{#> page.layout page-class="home queue"}}
+
+
+	<form class="card-panel" style="padding:12px;padding-bottom:0;">
+		<h4 class="light red-text text-accent-2" style="margin-top:0;">{{../queueType}} Content</h4> 
+		<input type="hidden" name="slingPath" value="{{slingPath}}">
+		<div class="row">
+			<div class=" col s1">
+				Path:
+			</div>
+
+			<div class=" col s11">
+				<div class="chip grey lighten-2">{{../slingPath}}</div>
+			</div>
+
+			<div class="col s1" style="padding-top:24px;">
+				Target:
+			</div>
+			<div class="input-field col s6" id="target-holder">
+				<select  class="grey lighten-2" id="target" name="target">
+					{{#each ../targets}}
+						<option value="{{name}}">{{title}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<div class="col s5" style="padding-top:18px;">
+				<a class="waves-effect waves-light btn disabled red lighten-2" id="queue-action"><i class="material-icons right">exit_to_app</i>{{../queueType}}</a>
+			</div>
+			<div class="new-job-link"></div>
+		</div>
+
+		
+	</form>
+
+	<div id="queue-loading" class="progress red lighten-4" style="height: 4px; margin-bottom: -8px; margin-top: 24px;">
+		<div class="indeterminate red accent-2" style="width:100%"></div>
+	</div>
+	<div id="status" class="card" style="min-height:200px; width:100%; padding:12px;  overflow-x: scroll; overflow-y: scroll;">
+	
+	</div>
+
+
+
+{{/page.layout}}

@@ -1,0 +1,12 @@
+
+\{{#if (img-opt {{config.hbsValidName}} op="path") }}
+	\{{#unless bl:titleMode}}<a target="_blank" href="\{{img-opt {{config.hbsValidName}} }}">\{{/unless}}
+	<img src="\{{img-opt {{config.hbsValidName}} ignoreBlank="true"}}" style="border:0px solid #333;\{{#if bl:titleMode}}max-height:80px;margin-top:0px;margin-bottom:8px;\{{else}}max-width:380px;max-height:300px;margin-top:5px;\{{/if}}" class="z-depth-1">
+	\{{#unless bl:titleMode}}</a>\{{/unless}}
+	\{{#if bl:titleMode}}
+	\{{else}}
+		<br><span class="field-description" style="display:inline-block;top:-4px;">\{{img-opt {{config.hbsValidName}} op="path"}}</span>
+	\{{/if}}
+\{{else}}
+	<span style="color:#955">No image selected</span>
+\{{/if}}

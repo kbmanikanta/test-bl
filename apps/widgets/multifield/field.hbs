@@ -1,0 +1,45 @@
+
+
+\{{#*inline "multifield-entry-{{config.name}}"}}
+    <li class="collection-item">
+    	<a class="btn-floating ghosty enabled right delete-composite" style="top:5px;left:-10px;"><i class="material-icons red darken-2 delete-button">delete</i></a>
+      <i style="position:relative;top:7px;cursor:ns-resize;" class="drag-handle material-icons grey-text">reorder</i><input \{{#if emptyMultifieldValue}} value="" \{{else}} value="\{{ . }}" \{{/if}} name="{{config.name}}" style="background-color:#eee; padding-left:10px; width:90%;  width:calc(100% - 120px); margin-left: 20px;margin-bottom: 0;" placeholder="Type content here">
+    </li>
+\{{/inline}}
+
+
+<div  class="bl-widget bl-init" data-type="multifield"  data-key="{{config.key}}"  >
+	<label for="{{safename config.name}}_\{{safename @root._id}}" style="position:relative; top:5px;">{{config.fieldLabel}}</label>
+{{#ifOp config.fieldConfig.widget "==" "textfield" }}
+	<ul class="collection" id="{{safename config.name}}_\{{safename @root._id}}">
+
+	\{{#if {{config.hbsValidName}} }}
+		\{{#if (is-array {{config.hbsValidName}}) }}
+			\{{#each {{config.hbsValidName}} }}				
+				\{{> multifield-entry-{{config.name}} }}				
+			\{{/each}}
+		\{{else}}
+			\{{#with {{config.hbsValidName}} }}
+				\{{> multifield-entry-{{config.name}} }}
+			\{{/with}}
+		\{{/if}}
+	\{{else}}
+		\{{> multifield-entry-{{config.name}} emptyMultifieldValue="true"}}
+	\{{/if}}
+	</ul>
+
+	<a class="btn-floating semi-ghosty enabled right add-button" style="margin-right:-12px;top:-40px;"><i class="material-icons green">add</i></a>
+
+	\{{#if "{{quote config.fieldDescription}}" }}
+		<span class="field-description">{{config.fieldDescription}}</span>
+	\{{/if}}
+	<input type="hidden" name="{{config.name}}@IgnoreBlanks" value="true">
+	<input type="hidden" name="{{config.name}}@TypeHint" value="String[]">
+	<input type="hidden" name="{{config.name}}@Delete" value="true">
+
+{{else}}
+	Requested multifield with '{{config.fieldConfig.widget}}' widget is not yet supported.
+{{/ifOp}}
+
+</div>
+

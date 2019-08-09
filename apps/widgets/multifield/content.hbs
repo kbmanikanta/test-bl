@@ -1,0 +1,13 @@
+
+<ul class="collection multifield">
+\{{#if (is-array {{config.hbsValidName}}) }}
+	\{{#each {{config.hbsValidName}} }}
+		<li class="collection-item">\{{ . }}</li>
+	\{{/each}}
+\{{else}}
+	\{{#with {{config.hbsValidName}} }}
+		<li class="collection-item">\{{ . }}</li>
+	\{{/with}}
+\{{/if}}
+</ul>
+

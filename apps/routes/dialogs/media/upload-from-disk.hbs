@@ -1,0 +1,53 @@
+
+<form>
+	<div class="row add-settings" style="padding:24px;" data-write-template-locally="{{writeComponentTemplateLocally}}">
+		<div class="col s12">
+			<div class="bl-widget input-field">
+				<div class="file-field input-field">
+					<div class="btn">
+					  <span>Select File</span>
+					  <input type="file" class="file-upload" multiple>
+					</div>
+					<div class="file-path-wrapper">
+					  <input class="file-path validate" type="text">
+					</div>
+				</div>
+    		</div>
+		</div>
+
+
+		<div class="col s12">
+			<div class="bl-widget input-field">
+				<input disabled type="text" id="parentPath" class="validate valid parent-path" style="background-color:#eee;padding-left:5px;" value="{{parentPath}}">
+				<label for="parentPath" class="active">Parent Path</label>
+			</div>
+		</div>
+
+		<div class="col s12" style="margin-top: -1.5rem; margin-bottom: .5rem;">
+			<div class="bl-widget input-field" style="margin-bottom: 0px; height: 3rem;">
+				<input type="checkbox" class="filled-in clean-up" name="cleanUpNames" id="cleanUpNames" checked="checked" />
+				<label for="cleanUpNames">Clean up file names?</label>
+			</div>
+		</div>
+
+
+
+		<div class="col s12">
+			<div class="bl-widget input-field">
+				<input id="assetName" name="assetName" type="text" disabled="true" value="Select file" class="valid asset-name" style="background-color:#eee;padding-left:5px;">
+				<label for="add_path" class="active">Asset Name</label>
+			</div>
+		</div>
+
+		<div class="input-field col s12" style="margin-top: 0px;">
+			<label for="assetStoreType"  style="position:relative; top:3px; left:1px;">Asset Store</label>
+			<select name="assetStoreType" id="assetStoreType" class="asset-store-type browser-default" style="border:1px solid #777">
+				<option value="sling" selected>Sling Repository</option>
+				<option value="s3">Amazon S3</option>
+			</select>
+		</div>
+
+	</div>	
+</form>	
+
+

@@ -1,0 +1,271 @@
+h1, h2, h3, h4, h5, h6, p, blockquote {
+   margin: 0;
+   padding: 0;
+}
+body {
+   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+   font-size: 14px;
+   line-height: 18px;
+   color: #737373;
+   background-color: white;
+   margin: 0; 
+   padding: 30px 30px 0 30px;
+}
+table {
+   margin: 10px 0 15px 0;
+   border-collapse: collapse;
+}
+td,th {	
+   border: 1px solid #ddd;
+   padding: 3px 10px;
+}
+th {
+   padding: 5px 10px;	
+}
+
+a {
+   color: #0069d6;
+}
+a:hover {
+   color: #0050a3;
+   text-decoration: none;
+}
+a img {
+   border: none;
+}
+p {
+  margin-bottom: 9px;
+  margin-right: 9px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   color: #822;
+   line-height: 36px;
+}
+h1 {
+    color:#822;
+    margin-bottom: 9px;
+    font-size: 30px;
+    margin-top: 32px;
+    border-top: 1px solid #aaa;
+    background-color: #eaecf6;
+    line-height: 150%;
+}
+
+h2 {
+   font-size: 24px;
+   margin-top:1.5em;
+}
+h3 {
+   font-size: 18px;
+   margin-top:1em;
+}
+h4 {
+   font-size: 16px;
+}
+h5 {
+   font-size: 14px;
+}
+h6 {
+   font-size: 13px;
+}
+hr {
+   margin: 0 0 19px;
+   border: 0;
+   border-bottom: 1px solid #ccc;
+}
+blockquote {
+   padding: 13px 13px 21px 15px;
+   margin-bottom: 18px;
+   font-family:georgia,serif;
+   font-style: italic;
+}
+blockquote:before {
+   content:"\201C";
+   font-size:40px;
+   margin-left:-10px;
+   font-family:georgia,serif;
+   color:#eee;
+}
+blockquote p {
+   font-size: 14px;
+   font-weight: 300;
+   line-height: 18px;
+   margin-bottom: 0;
+   font-style: italic;
+}
+code, pre {
+   font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+   background-color: #f2e8e8;
+   color: #8a3131;
+   padding: 0px;
+   font-size: 13px;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   border-radius: 3px;
+   margin-left: 2px;
+   margin-right: 2px;
+   padding-left: 6px;
+   padding-right: 6px;
+}
+.hljs{
+   padding:1em;
+}
+
+pre {
+   display: block;
+   padding: 2px 0px;
+   margin: 24px 0;
+   line-height: 16px;
+   background-color: #282b2e;
+   font-size: 11px;
+   border: 1px solid #d9d9d9;
+   white-space: pre-wrap;
+   word-wrap: break-word;
+}
+pre code {
+   background-color: #fff;
+   color:#737373;
+   font-size: 13px;
+   padding: 0;
+}
+sup {
+   font-size: 0.83em;
+   vertical-align: super;
+   line-height: 0;
+}
+
+ul {
+    margin-top: 4px;
+    margin-bottom: 18px;
+}
+
+img.fancy{
+  margin-bottom:.25em;
+}
+
+img.border{
+    border:1px solid #777;
+}
+
+.image-container.border img.border{
+    border:none;
+}
+
+.image-container.border{
+    border:1px solid #777;
+}
+
+img.shadow{
+    box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.30);
+    margin-top:2em;
+    margin-bottom:2em;
+}
+
+.image-container.shadow img.shadow{
+    box-shadow: none;
+    margin-top: 1em;
+    margin-bottom: .25em;
+}
+
+.image-container.shadow{
+    box-shadow: 0px 0px 25px 2px rgba(0,0,0,0.30);
+    margin-top:2em;
+    margin-bottom:2em;
+    padding-bottom:.1em;
+}
+
+img.fancy.left, .image-container.left{
+  float:left;
+  margin-right:1em;
+}
+
+img.fancy.right, .image-container.right{
+  float:right;
+  margin-left:1em;
+}
+
+img.center, .image-container.center{
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  text-align: center;
+}
+
+.image-container{
+  margin-bottom:.25em;
+}
+
+
+.image-caption{
+  font-style:italic;
+  color:#369;
+}
+
+.image-container.border .image-caption{
+  margin:.25em;  
+}
+
+.image-container.shadow .image-caption{
+  margin:.5em;
+}
+
+a.h-link{
+  text-decoration:none;
+  font-family: sans-serif;
+  margin-left: 1em;
+  font-size: 70%;
+  line-height:1rem;
+}
+
+
+.page-toc{
+  float: right;
+  position: fixed;
+  left: 938px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-height:100%;
+  padding: 1em;
+  background-color: #eaecf6;
+  border:1px solid #aaa;
+}
+
+.page-toc ul{
+  margin:0;
+  padding:0;
+  padding-left: 1em;
+}
+
+.page-toc li{
+  margin:0;
+  padding:0;
+  list-style:disc;
+}
+
+.page-toc a{
+  text-decoration: none;
+  color: #555;
+}
+
+.page-toc a:hover{
+  background-color:#FFF;
+  color: #33a;
+}
+
+
+
+
+* {
+   -webkit-print-color-adjust: exact;
+}
+@media print {
+   body,code,pre code,h1,h2,h3,h4,h5,h6 {
+      color: black;
+   }
+   table, pre {
+      page-break-inside: avoid;
+   }
+}

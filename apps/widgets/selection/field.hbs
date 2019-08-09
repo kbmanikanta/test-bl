@@ -1,0 +1,37 @@
+
+<div class="bl-widget bl-init" data-type="selection" data-sub-type="{{config.type}}" data-key="{{config.key}}" data-saved-value='\{{as-json {{config.hbsValidName}} dontQuoteStrings="true" }}'>
+
+
+{{#ifOp config.type "!=" "combobox"}}
+		{{#ifOp config.options "nonblank"}}
+			{{!-- "checkbox" "radio", "select" or combobox"	 --}}
+
+			<label for="{{safename config.name}}_\{{safename @root._id}}"  style="position:relative;top:3px;">{{config.fieldLabel}}</label>
+			<select class="{{#if config.readonly}} readonly {{/if}}" name="{{config.name}}" id="{{safename config.name}}_\{{safename @root._id}}" {{#if config.multiple}} multiple {{/if}}  >
+				<option value="" disabled selected style="color:#911">No selection</option>
+				<option value="">Loading options....</option>
+			</select>
+
+			{{#if config.multiple}}
+				<input type="hidden" name="{{config.name}}@TypeHint" value="String[]" />
+			{{/if}}
+
+		{{else}}
+			<div class="selection-widget-single-checkbox">
+				<input type="checkbox"  value="true" class="filled-in" name="{{config.name}}" id="{{safename config.name}}_\{{safename @root._id}}" \{{#ifop {{config.hbsValidName}} "||" {{config.defaultValue}} }}checked="checked"\{{/ifop}} />
+				<label for="{{safename config.name}}_\{{safename @root._id}}" style="padding-left:29px;top:2px;">{{config.fieldLabel}}</label>
+				<input type="hidden" name="{{config.name}}@TypeHint" value="Boolean" />
+			</div>
+		{{/ifOp}}
+					
+		{{#if config.fieldDescription}}
+				<div class="field-description" style="width: calc(100% - 15px); position:relative;top:-8px;">{{config.fieldDescription}}</div>
+		{{else}}
+				<div style="height:4px"></div>
+		{{/if}}
+		<input type="hidden" name="{{config.name}}@Delete" value="true">
+{{else}}
+	Selection widget of type <b>'combobox'</b> not yet supported.
+{{/ifOp}}
+
+</div>

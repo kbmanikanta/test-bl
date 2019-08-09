@@ -1,0 +1,230 @@
+{{#> page.layout page-class=(first-of pageClass "edit")	}}
+
+	<div class="section" data-key="{{../config.basePath}}" {{inheritance-mark ../data mode="edit-page"}} id="index-banner">
+		<div class="container">
+
+			{{#component-config ../data}}
+			
+			
+
+
+			<div class="fixed-action-btn page-actions">
+				<a href="javascript:;" class="bl-go-preview  tooltipped" data-position="left" data-tooltip="Page Preview"><img draggable="true" src="{{../../publicMount}}blacklight/edit/images/blacklight-bulb-white.svg" style="width:40px; z-index:500; cursor:pointer;"></a>
+				<!-- Dropdown Structure -->
+				<ul class="page-info-dropdown-floating">
+
+					<li><a href="javascript:;" class="bl-go-page-manager btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="Page Manager"><i class="material-icons" style="transform: rotate(180deg);">chrome_reader_mode</i></a></li>
+
+					<li><a href="javascript:;" class="bl-multilingual btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="Multilingual"><i class="material-icons ">language</i></a></li>
+
+					<li><a href="javascript:;" class="bl-history btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="History"><i class="material-icons ">history</i></a></li>
+
+
+					{{!-- <li class="divider"></li> --}}
+					<li><a href="javascript:;" class="bl-activation btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="Activate Page"><i class="material-icons ">thumb_up</i></a></li>
+					<li><a href="javascript:;" class="bl-activation btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="Deactivate Page" data-deactivate="true"><i class="material-icons ">thumb_down</i></a></li>
+
+					<li><a href="javascript:;" class="bl-documentation btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="Documentation" data-deactivate="true"><i class="material-icons ">library_books</i></a></li>
+					<li><a href="javascript:;" class="bl-go-preview btn-floating blue accent-2 tooltipped" data-position="left" data-tooltip="Page Preview" data-deactivate="true"><i class="material-icons ">visibility</i></a></li>
+
+				</ul>
+			</div>
+
+				<ul class="collapsible popout" data-collapsible="expandable" data-sling-type="{{@component.type}}">
+
+
+				  	<!-- Page id and control header -->
+						<li style="background-color:#FAFAFA; clear:both; display:none" class="page-control">
+
+							<a  data-target="bl-edit-dialog"  data-sling-path="{{../../config.basePath}}" data-sling-type="{{@root.metaType}}" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" class="bl-open-dialog-button waves-effect waves-light dropdown-button btn btn-floating semi-ghosty enabled right white" style="margin-right:18px;top:7px;font-size:25px; font-weight:bold; text-transform:none;"><i class="material-icons "  style="color:#687279; font-size:1.8rem;">edit</i>Page settings</a>
+
+							{{#if bl:map}}
+								<a  href=""  data-sling-path="{{../../config.basePath}}"  data-target="bl-edit-dialog" data-mapping-mode="true" class="bl-open-dialog-button ghosty icn-btn right" style="margin-right:14px; color:#eee"><i class="material-icons" style="position:relative; top:3px;">location_searching</i></a>
+							{{/if}}
+
+
+							<div class="collapsible-header {{#unless ../collapsed}}active{{/unless}}" style="padding:1rem;background-color:#687279; border-bottom:none!important;">
+								<h5 style="margin:0;" class="white-text"><span class="" style="color: #ccc!important; margin-right:12px;">{{@component.title}}:</span>
+									{{#if pageTitle}}
+											{{pageTitle}}
+									{{else}}
+										{{#if jcr:title}}
+												{{ jcr:title}}
+										{{else}}
+											{{prettyname ../config.pageName}}
+										{{/if}}
+									{{/if}}
+								</h5>
+
+							</div>
+
+						</li>
+
+					{{#*inline "topLevelSection"}}
+						<li class="page-level-li  {{#if bl:map.bl:queryProcessing}} relative-position {{/if}}"   {{#if @component.isECC}}data-is-ecc="true"{{else}} data-key="{{@component.key}}" data-sling-type="{{@component.type}}" {{{@component.missingType}}}{{/if}}  style="background-color:#FAFAFA; clear:both;">
+
+							{{#if @component.hasDialog}}
+								<a data-target="bl-edit-dialog" data-sling-type="{{@component.type}}" data-title="{{@component.title}}" class="bl-open-dialog-button waves-effect waves-light btn btn-floating semi-ghosty enabled right" style="margin-right:18px;top:6px;"><i class="material-icons blue-text white">edit</i></a>
+								<i class="material-icons item-menu" style="float:right;">more_vert</i>
+							{{/if}}
+
+							<div class="collapsible-header blue accent-2 {{#unless startClosed}}active{{/unless}} white-text" style="padding:1rem;">
+								<h5 style="margin:0;" class="white-text">
+									{{#if bl:placeholderStub}}
+										<i class="material-icons left yellow-text tooltipped" data-tooltip="Component does not yet exist." style="margin-right: -2px;top: -8px;position: relative;left: -6px;">new_releases</i>
+									{{/if}}
+									{{#if pageTitle}}
+										<span class="" style="color: #eee!important; margin-right:12px;">{{@component.title}}:</span>
+										{{pageTitle}}
+									{{else}}
+										{{@component.title}}
+									{{/if}}
+								</h5>
+							</div>
+							{{#unless bl:map.bl:queryProcessing}}
+								<div class="collapsible-body" style="background-color:#fafafa;">								
+									{{> page.component-body bl:key=@component.key bl:fromTopLevel=true}}
+								</div>
+
+							{{else}}
+								<div class="processing-query " data-component-key="{{@component.key}}">
+									<p class="loading">
+										<span><i class="loading-spinner fa fa-refresh fa-spin"></i>  This query result is currently being updated</span>
+									</p>
+									<p class="done">
+										<span>Processing complete. Click <a href="javascript:window.location.reload(true)">here</a> to reload</span>
+									</p>
+								</div>
+							{{/unless}}
+						</li>
+					{{/inline}}
+
+
+
+					{{#if @component.hasDialog}}
+						{{> topLevelSection pageTitle=(first-of @root.config.pageTitle (prettyname @root.config.pageName)) }}
+					{{else}}
+
+						{{#each @component.includes}} 
+							{{#unless hideEdit}}
+								{{#component-config (lookup .. name) maxItems=maxItems type=type title=title key=name}}
+									{{#if @first}}
+										{{> topLevelSection startClosed=../startClosed  pageTitle=(first-of @root.config.pageTitle (prettyname @root.config.pageName))}}
+									{{else}}
+										{{> topLevelSection startClosed=../startClosed}}
+									{{/if}}
+									
+									
+								{{/component-config}}
+							{{/unless}}
+						{{/each}}
+					{{/if}}
+
+	
+				</ul>
+			{{/component-config}}
+
+		</div>
+	</div>
+
+
+
+
+
+	<!-- Main edit dialog -->
+	<div id="bl-edit-dialog" class="bl-widget modal modal-fixed-footer" >
+		<div class="modal-content">
+			Loading... <i class="fa fa-refresh fa-spin gray lighten-3"></i>
+		</div>
+		<div class="modal-footer">
+			<a class="bl-save-button waves-effect waves-light blue btn" style="margin-left:10px;" href="javascript:;">Save</a>
+			<a href="javascript:;" class="modal-close waves-effect waves-light red btn">Cancel</a>
+			<a href="javascript:;" style="background-color:#A26868!important;" class="bl-data-map ghosty waves-effect waves-light btn left">
+				<i class="material-icons left" style="margin-right: -2px;top: 0px;position: relative;left: -15px;">my_location</i>
+				<span class="btn-title">Data Map</span>
+				<i class="material-icons right" style="margin-right: -19px;top: 0px;position: relative;left: -6px;">arrow_forward</i>
+			</a>
+<!--
+			<a href="javascript:;" class="bl-annotations ghosty waves-effect waves-light btn left lime darken-2" >
+				<i class="material-icons left" style="margin-right: -2px;top: 0px;position: relative;left: -15px;">chat</i>
+				<span class="btn-title">Annotations</span>
+				<i class="material-icons right" style="margin-right: -19px;top: 0px;position: relative;left: -6px;">arrow_forward</i>
+			</a>
+-->
+
+
+			<div style="display:none; width:10rem;top: -16px; right: 16px; float:right;"  class="input-field">
+				<input type="text" id="bl-node-name" class="validate" name=":name" >
+				<label for="bl-node-name" class="">Node name</label>
+			</div>
+
+		  <div class="preloader-wrapper right small active spinner" style="top:5px; right:49px; display:none;">
+		    <div class="spinner-layer spinner-red-only">
+		      <div class="circle-clipper left">
+		        <div class="circle"></div>
+		      </div><div class="gap-patch">
+		        <div class="circle"></div>
+		      </div><div class="circle-clipper right">
+		        <div class="circle"></div>
+		      </div>
+		    </div>
+		  </div>
+
+
+		</div>
+	</div>
+
+
+	<!-- Main delete dialog -->
+	<div id="bl-delete-dialog" class="bl-widget modal modal-fixed-footer">
+		<div style="font-size: 1rem;top: -5px; padding:5px; text-align:center;;color:white;text-transform:uppercase;" class="blue accent-2">Confirm delete</div>
+
+		<div class="modal-content" style="margin:24px;">
+			Loading... <i class="fa fa-refresh fa-spin gray lighten-3"></i>
+		</div>
+		<div class="modal-footer">
+			<a class="bl-delete-button waves-effect waves-light  red btn" style="margin-left:10px;" href="javascript:;">Delete</a>
+			<a href="javascript:;" class="modal-close waves-effect waves-light blue btn">Cancel</a>
+		</div>
+	</div>
+
+
+
+	<!-- Resource Selector -->
+	<div id="bl-resource-selector" class="modal modal-fixed-footer" style="top:14%;overflow-y:hidden;">
+		<div class="modal-footer" style="top:0;height:100%;margin: -5px;width: calc(100% + 12px);margin-left: -6px;">
+			<div style="font-size: 1rem;top: -5px; padding:5px; text-align:left;;color:white;text-transform:uppercase;" class="cyan darken-1">
+				<a href="javascript:;"><i class="modal-close material-icons white-text" style="float:right;position:relative;top:-2px;">close</i></a>
+				<span class="title">Select Resource</span>
+			</div>
+			<div class="flex-box full">
+				<span style="margin-left: 5px;font-weight: bold;font-size: 12px;">Selected: <span style="font-style: italic;" id="temp-selected"></span></span>
+				<div id="resource-tree-selector"></div>
+				<div class="accept-button">
+					<a href="#!" class="waves-effect waves-light btn" id="accept-search">Accept</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Image Selector -->
+	<div id="bl-reference-selector" class="modal modal-fixed-footer" style="top:14%;overflow-y:hidden;">
+		<div class="modal-footer" style="top:0;height:100px;margin: -5px;width: calc(100% + 12px);margin-left: -6px;">
+			<div style="font-size: 1rem;top: -5px; padding:5px; text-align:left;;color:white;text-transform:uppercase;" class="cyan darken-1">
+				<a href="javascript:;"><i class="modal-close material-icons white-text" style="float:right;position:relative;top:-2px;">close</i></a>
+				<span class="title">Select Image</span>
+			</div>
+			<div class="card" style="width:calc(100% - 40px); margin:20px; margin-top:12px; ">
+				<input id="search-image" style="border: none !important; width: calc(100% - 50px); margin: 0; padding-left: 10px;" ><i class="material-icons" style="font-size: 32px;float: right;top: 6px;position: relative;left: -3px;">search</i>
+			</div>
+		</div>
+		<div class="modal-content search-results" style="width:calc(100%); top:100px; margin:0; padding:20px; padding-top:0; overflow-y: scroll;height:calc(100% - 108px)">
+		</div>
+	</div>
+
+
+	<!-- Date picker -->
+	<div id="bl-primary-datepicker"></div>
+
+{{/page.layout}}

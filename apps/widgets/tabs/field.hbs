@@ -1,0 +1,20 @@
+
+<div class="row">	
+    <div class="col s12" style="margin-bottom:24px;">
+	<ul class="tabs bl-init bl-widget" data-type="tabs" data-key="{{config.key}}">
+		{{#each config.items}}
+			<li class="tab col s3"><a class="red-text text-darken-4" href="#tab-{{@index}}_\{{@root._id}}">{{title}}</a></li>
+		{{/each}}
+	</ul>
+	</div>
+	
+
+	{{#each config.items}}
+			<div id="tab-{{@index}}_\{{@root._id}}" style="margin-right:4%; margin-left:4%;" class="col s11">
+			{{#each items}}
+					{{get-template . }}
+			{{/each}}
+			</div>
+	{{/each}}
+</div>
+

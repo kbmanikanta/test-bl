@@ -1,0 +1,19 @@
+
+<div class="bl-widget input-field  bl-init" data-type="image" data-key="{{config.key}}">
+
+	<div class="row">
+		<div class="col s11 dialog-col">
+			<input value="\{{  {{config.hbsValidName}} }}" id="{{safename config.name}}_\{{safename @root._id}}" name="{{config.name}}" type="text" class="validate path-widget" data-filters='\{{first-of filters "[\"sling:OrderedFolder\",\"cq:Page\"]"}}' data-root='\{{first-of root "/content/"}}' style="background-color:#eee;padding-left:5px;width: calc(100% - 5px);">
+			<label for="{{safename config.name}}_\{{safename @root._id}}">{{config.fieldLabel}}</label>
+			\{{#if "{{quote config.fieldDescription}}" }}
+				<br/><span class="field-description bl-textfield" style="">{{config.fieldDescription}}</span>
+			\{{/if}}
+		</div>
+		<div class="col s1 dialog-col">
+			<i class="material-icons resource-tree" style="padding: 10px 25px;font-size: 30px;cursor: pointer;">folder_open</i>
+		</div>
+
+	</div>
+
+</div>
+

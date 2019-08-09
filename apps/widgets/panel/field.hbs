@@ -1,0 +1,13 @@
+
+<div class="bl-dialog-panel" style="margin:30px;">
+	{{#each config.items}}	
+		<div data-widget-name="{{key}}" class="form-row {{widget}} {{#if lockAllowed}} \{{#if @root.bl:lock-mode}}lock_mode\{{/if}} {{/if}}">
+			{{#if lockAllowed}} 
+				\{{#if @root.bl:lock-mode}}
+					<i class="row-lock material-icons \{{#ifnot "{{key}}" "in" @root.bl:local  }}locked\{{/ifnot}} \{{#ifop "{{key}}" "in" @root.bl:templated  }}templated\{{/ifop}}">lock\{{#ifop "{{key}}" "in" @root.bl:local  }}_open\{{/ifop}}</i>
+				\{{/if}}
+			{{/if}}
+			{{get-template .}}
+		</div>
+	{{/each}}
+</div>

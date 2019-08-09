@@ -1,0 +1,39 @@
+
+
+
+{{#if @component.isECC}}
+	
+	{{#unless bl:fromTopLevel}}
+		<div class="eccTitle z-depth-1">
+			{{#if @component.icon}}<i class="material-icons">{{@component.icon}}</i>{{/if}}
+			{{#if bl:parsys.title}}{{{bl:parsys.title}}}{{else}}{{{@component.title}}}{{/if}} 
+			{{!-- <i class="material-icons ecc-menu item-menu">more_vert</i> --}}
+		</div>
+	{{/unless}}
+
+	<div class="eccContainer{{#unless bl:fromTopLevel}} child{{/unless}}" {{#unless bl:parentIsECC}}data-key="{{bl:key}}"{{/unless}} {{{@component.missingType}}}>
+		<ul class="collapsible outer-ul ecc"  data-collapsible="expandable">
+			
+			{{#each .}} {{#ifOp @key "nonmeta"}}{{#if sling:resourceType}}
+					{{> page.component-inner-li . bl:key=@key bl:parentIsECC=true}}	
+			{{/if}}{{/ifOp}}{{/each}}
+
+			{{#unless (count . type="components") }}
+				<li><div style="padding:8px; color:#999; padding-left:16px; padding-top:12px;">Currently empty.  Click the plus button to add an item.</div></li>
+			{{/unless}}
+		</ul>
+
+		
+		<a class="bl-add-to-ecc btn-floating semi-ghosty enabled right" data-max-items="{{first-of @component.maxItems ""}}"
+		style="clear:both;margin-right:7px;top:-31px;{{#ifop (count . type="components") ">=" (first-of @component.maxItems 10000) }}display:none;{{/ifop}}" data-ecc-config='{{@component.eccConfig}}'
+		><i class="material-icons green">add</i></a>
+		
+	</div>
+
+{{else}}	
+
+		<ul class="collapsible outer-ul not-ecc" data-key="{{bl:key}}" {{inheritance-mark . mode="edit-page"}} data-sling-type="{{@component.type}}"  {{{@component.missingType}}} style="margin:10px 24px 10px 24px;clear:both;{{#if freestyle}}background-color:#fdd{{/if}}" data-collapsible="expandable">	
+			{{> page.component-inner-li . bl:type=@component.type bl:rtypeTitle=bl:rtypeTitle}}
+		</ul>
+{{/if}}
+

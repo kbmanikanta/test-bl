@@ -1,0 +1,14 @@
+
+{{#if slingData}}
+	{{#component-config slingData}}
+		{{#if @component.hasDialog}}
+			
+			{{dialog-content-mode @component.type .}}
+
+		{{else}}
+			<p> No fields defined.</p>
+		{{/if}}
+	{{/component-config}}
+{{else}}
+	<p> No data found.</p>
+{{/if}}

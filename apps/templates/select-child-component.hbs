@@ -1,0 +1,110 @@
+
+{{#if step1}}
+
+	{{#unless noChildrenAllowed}}
+		{{!-- Now looking for 'suggested' and 'allowed' options to show --}}
+
+		<div class="card search-card" data-url="{{url}}" style="background-color: #fafafa;width: calc(100% - 40px); margin: 20px; {{#ifnot (not hideSearch) "||" allowBrowsing}}display: none;{{/ifnot}}">
+			<input id="search-components" style="border: none !important; width: calc(100% - 50px); margin: 0; padding-left: 10px;" value="{{query.query}}"><i class="material-icons" style="background-color: #fafafa;font-size: 32px;float: right;top: 6px;position: relative;left: -3px;">search</i>
+		</div>
+		{{#if allowBrowsing}}
+			<span class="field-description bl-textfield" style="margin-left: 28px;">To browse outside of suggestions, type a component query and then hit enter.  For example: 'mysite/mymodule/pages/*'</span>
+		{{/if}}
+
+		{{#*inline "section"}}
+			{{#each .}}
+				<div class="category-container" style="padding:12px;">
+					<div class="col s12 m4"><h5 class="light">{{category}}</h5></div>
+
+					<div class="col s12 m8">
+						<div class="collection">
+						{{#each options }}
+						<a href="javascript:;" class="collection-item {{#if unavailable}}unavailable{{/if}}" title="{{longName}}" data-type="{{type}}" data-merge-marker="{{@root.writeMergeMetaMarking}}" data-title="{{title}}" data-name="{{name}}"><i class="material-icons tiny">{{icon}}</i><span class="title">{{title}}</span>{{#if name}}<span class="name"> &nbsp; &nbsp; Path name:&nbsp;  <i>{{name}}</i></span>{{#if unavailable}}<span class="name" style="text-decoration:none;color:#999;">&nbsp;(already exists)</span>{{/if}}{{/if}}</a>
+						{{/each}}
+						</div>
+					</div>
+					{{#unless @last}}<div class="col s12" style="border:none; height:12px;"></div>{{/unless}}
+				</div>
+			{{/each}}
+		{{/inline}}
+
+
+		{{#if allowed}}
+			<ul class="collapsible add-page" data-collapsible="expandable" style="width:calc(100% - 40px); margin:20px; overflow-y: scroll;">
+				<li class="active">
+					<div class="collapsible-header active" data-no-hash="true" style=""><i class="material-icons">star_border</i>Suggested</div>
+					<div class="collapsible-body" style="padding:0px;">
+						<div class="row">
+							{{#with suggested}}{{> section}}{{/with}}
+						</div>
+					</div>
+				</li>
+				<li class="">
+					<div class="collapsible-header" data-no-hash="true" style=""><i class="material-icons">all_inclusive</i>Allowed</div>
+					<div class="collapsible-body" style="padding:12px;">
+						<div class="row">
+							{{#with allowed}}{{> section}}{{/with}}
+						</div>
+					</div>
+				</li>
+			</ul>
+		{{else}}
+			<ul class="add-page"><li>
+			<div class="card" style="padding:12px; background-color:#fafafa;width:calc(100% - 40px); margin:20px; overflow-y: scroll;">
+				<div class="row">
+					{{#with suggested}}{{> section}}{{/with}}
+				</div>
+			</div>
+			</li></ul>
+		{{/if}}
+	{{else}}
+		<div class="row" style="margin:20px;">
+			<span style="font-size:1.2rem;">{{first-of noChildrenAllowed "Child item not allowed here"}}</span><br><br>
+			<span>{{noChildrenReason}}</span>
+		</div>
+	{{/unless}}
+
+	<i class="material-icons explain" style="float:right;top:-10px;left:-24px;cursor:pointer;position:relative;">help_outline</i>
+
+	<div class="reasons row" style="display:none;">
+		<table class="bordered highlight col-xs-10">
+		{{#each reasons}}
+			<tr>
+				<td valign="top">{{msg}}</td>
+				<td valign="top">{{{detail}}}</td>
+				<td valign="top">{{#if result}}<pre>{{as-json result pad=true}}</pre>{{else}}None{{/if}}</td>
+			</tr>
+		{{/each}}
+		</table>
+	</div>
+{{else}}
+
+
+
+	{{!-- ********************************************************************************************** --}}
+	{{#if step2}}
+			<div class="row add-settings" style="padding:24px;" data-write-template-locally="{{writeComponentTemplateLocally}}">
+				<div class="col s12">
+					<div class="bl-widget input-field">
+						<input disabled type="text" class="validate valid" style="background-color:#eee;padding-left:5px;" value="{{resourceType}}">
+						<label for="add_title" class="active">Type</label>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="bl-widget input-field">
+						<input value="{{#if query.title}}{{query.title}}{{else}}{{#if query.pathName}}{{prettyname query.pathName}}{{/if}}{{/if}}" id="add_title" name="add_title" type="text" class="validate valid" style="background-color:#eee;padding-left:5px;">
+						<label for="add_title" class="active">Title</label>
+					</div>
+				</div>
+
+				<div class="col s12">
+					<div class="bl-widget input-field">
+						<input value="{{query.pathName}}" {{#if query.pathName}}disabled{{/if}} id="add_path" name="add_path" type="text" class="validate valid" style="background-color:#eee;padding-left:5px;">
+						<label for="add_path" class="active">Path Name</label>
+					</div>
+				</div>
+			</div>			
+
+	{{/if}}
+
+{{/if}}

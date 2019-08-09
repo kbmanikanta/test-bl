@@ -1,0 +1,89 @@
+{{#> page.layout page-class="home queue single-job"}}
+
+{{#with ..}}
+
+	<form class="card-panel" style="padding:12px;padding-bottom:0;">
+		<input type="hidden" name="slingPath" value="{{slingPath}}">
+		<div class="row">
+			<div class="col s6">
+				<div class="row">
+				<div class="col s12" style="margin-bottom:1rem;">		
+					<h4 class="light red-text text-accent-2" style="margin:0;padding:0;">{{queue.title}} Job</h4>
+
+
+					{{#if job.title}}
+						<span style="margin-left:.5rem;color:#111;">{{job.title}}</span>
+					{{else}}
+						<span class="queue-description" style="margin-left:1rem;color:#999;"><i>&raquo; {{queue.description}}</i></span>
+					{{/if}}
+				
+
+				</div>
+
+				{{#each taskPrototype}}
+					<div class=" col s3"><b>{{prettyname @key}}</b>:</div>
+					<div class=" col s9">{{.}}</div>
+				{{/each}}
+
+				<div class="col s12" style="padding-top:18px;">
+					<a class="waves-effect waves-light btn red lighten-2" id="queue-action"><i class="material-icons">pause</i></a>
+					<a class="waves-effect waves-light btn red lighten-2" id="queue-action"><i class="material-icons">play_arrow</i></a>
+					<a class="waves-effect waves-light btn red lighten-2" id="queue-action"><i class="material-icons">delete_forever</i></a>
+					<a class="waves-effect waves-light btn red lighten-2" id="queue-action"><i class="material-icons">repeat</i></a>
+				</div>
+				</div>
+			</div>
+
+			<div class="col s6">
+				<div class="col s12" style="margin-bottom:0rem;">		
+					<h4 class="light red-text text-accent-2" style="margin:0;padding:0;">Details</h4>
+				</div>
+
+
+{{!-- 				{{#if job.title}}
+					<div class=" col s2"><b>Job</b>:</div>
+					<div class=" col s10">{{job.title}}</div>
+
+				{{/if}}
+
+ --}}				
+ 				<div class=" col s2"><b>ID</b>:</div>
+				<div class=" col s10">{{job.id}}</div>
+
+				<div class=" col s2"><b>Status</b>:</div>
+				<div class=" col s10">{{prettyname job.status}}</div>
+
+				<div class=" col s2"><b>Start</b>:</div>
+				<div class=" col s10">{{job.startTime}}</div>
+
+			</div>			
+		</div>
+
+		
+	</form>
+
+	<div id="queue-loading" class="progress red lighten-4" style="height: 4px; margin-bottom: -8px; margin-top: 24px;">
+		<div class="red accent-2" style="width:1%"></div>
+	</div>
+
+	<div id="status" class="card" style="min-height:200px; height:calc(100vh - 280px); width:100%; padding:12px;  overflow-x: scroll; overflow-y: scroll;">
+		<span id="coming-soon" data-link="{{link}}" class="red-text text-accent-2"><b>{{job.index}}</b> of {{job.taskCount}} &nbsp;tasks completed in  &nbsp;<b>XX</b> seconds.</span>
+
+		<ul id="queue-items" data-job-id="{{job.id}}" data-task-count="{{job.taskCount}}">
+		{{#each tasks}}
+			<li class="task" data-title="{{title}}" data-link="{{link}}" data-index="{{math-add @index 1}}">{{title}}</li>
+		{{/each}}
+		</ul>
+
+		{{#if job.error}}
+			<br>
+			<b>Error at task index:</b> {{job.error.index}}<br><br>
+			<b>Task:</b> <pre>{{as-json job.error.task}}</pre><br>
+			<b>Error details:</b>
+			<pre>{{job.error.error}}</pre>
+		{{/if}}
+	</div>
+
+{{/with}}
+
+{{/page.layout}}

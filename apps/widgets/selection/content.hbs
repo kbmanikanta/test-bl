@@ -1,0 +1,13 @@
+{{#ifOp config.options "nonblank"}}
+	\{{#if (is-array {{config.hbsValidName}}) }}
+			<ul style="margin:0;">
+			\{{#each {{config.hbsValidName}} }}
+				<li> \{{.}} </li>
+			\{{/each}}
+			</ul>
+	\{{else}}
+		\{{ {{config.hbsValidName}} }}
+	\{{/if}}
+{{else}}
+	<i class="material-icons small" style="color:#999; font-size:1.3rem">\{{#if {{config.hbsValidName}} }}check\{{else}}do_not_disturb\{{/if}}</i>
+{{/ifOp}}

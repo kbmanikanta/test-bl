@@ -1,0 +1,23 @@
+
+<div class="bl-widget input-field image bl-init" data-type="image" data-key="{{config.key}}">
+
+	<div class="row">
+		<div class="col s6" style="padding:0;padding-top:20px;">
+			<input value="\{{first-of {{config.hbsValidName}}/path {{config.hbsValidName}} }}" id="{{safename config.name}}_\{{safename @root._id}}" name="{{config.name}}" type="text" class="validate image-path" style="background-color:#eee;padding-left:5px;">
+			<label style="top:30px;" for="{{safename config.name}}_\{{safename @root._id}}">{{config.fieldLabel}}</label>
+			\{{#if "{{quote config.fieldDescription}}"}}
+				<br/><span class="field-description bl-textfield" style="">{{config.fieldDescription}}</span>
+			\{{/if}}
+
+			<input type="hidden" name="{{config.name}}/cropping" value="\{{ {{config.name}}/cropping }}" class="cropping">
+			<input type="hidden" name="{{config.name}}/focalPoint"  value="\{{ {{config.name}}/focalPoint }}" class="focal-point">
+		</div>
+
+		<div class="col s6 image-holder">
+			<img class="image-display card" style="display:none;max-width:100%;max-height:120px;min-height:120px;" data-pattern="{{blConfig.publicMount}}img-opt/~70.400x[crop]/author[url]"  src="">
+			<div class='no-image' style='font-size:1.5em; color:#ccc; height:120px;padding-top:28px;padding-left:16px;'>No image selected</div>
+		</div>
+	</div>
+
+</div>
+

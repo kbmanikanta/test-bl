@@ -1,0 +1,62 @@
+<style>
+	html { overflow: hidden;}
+	body { overflow: scroll;}
+
+	.ui-resizable-handle {
+		position: absolute;
+		font-size: 0.1px;
+		display: block;
+	}
+	.ui-resizable-e {
+		cursor: e-resize;
+		width: 7px;
+		right: 0px;
+		top: 0;
+		height: 100%;
+	}
+</style>
+
+
+<div id="left-panel" class="fixed" style="background-color:#f0f0f0; width: 210px;font-size:12px;top:54px; margin-top:1px; height:calc(100% - 55px)">
+	<div id="nav-tree"></div>
+</div>
+
+<div id="top-panel" class="mgmt-nav" style="background-color:#f0f0f0; margin-left:210px; height:38px; padding:8px; padding-left:12px;">
+
+	<a href="#" target="_blank" id="bl-new-window" class="btn right blue accent-2 tooltipped" style="margin-top:0px;margin-right:1em;" data-tooltip="Open in new window"  data-position="top"><i class="material-icons dp32">screen_share</i></a>
+	<a  id="bl-reload" class="btn right blue accent-2 tooltipped" style="margin-top:0px;margin-right:8px;" data-tooltip="Refresh view"  data-position="top"><i class="material-icons dp32">refresh</i></a>
+
+
+
+	{{#each @root.blConfig.modes}}
+		{{#if icon}}
+			<a class="btn blue accent-2 tooltipped"  data-mode="{{@key}}"  data-tooltip="{{first-of title (prettyname @key)}}" data-position="top"><i class="material-icons dp32">{{icon}}</i></a>
+		{{/if}}
+	{{/each}}
+
+
+
+	&nbsp;&nbsp;&nbsp;
+
+	{{#if @root.menuItems}}
+
+		<a class="btn blue accent-2 dropdown-button" data-activates="page-actions" data-alignment="left" data-beloworigin="true" data-constrainwidth="false"  data-position="top"><i class="material-icons dp32">menu</i></a>
+
+		<ul id="page-actions" class="dropdown-content">
+			{{#each @root.menuItems}}			
+				<li class="{{#if disabled}}disabled {{/if}}{{class}}"><a data-{{#if mode}}mode{{else}}action{{/if}}="{{@key}}" {{{linkAttributes}}}><i class="material-icons small">{{first-of icon @key}}</i>{{title}}</a></li>
+
+				{{#if divider}}<li class="divider"></li>{{/if}}
+			{{/each}}
+		</ul>		
+
+
+	{{/if}}
+
+	<div id="bl-loading" class="progress blue lighten-4" style="height: 2px;">
+		<div class="indeterminate blue accent-2" style="width:100%"></div>
+	</div>
+	
+</div>
+<iframe id="bl-iframe" src="{{config.defaultFrameURL}}" frameborder="0" style="margin-left:210px;     width: calc(100vw - 210px); height: calc(100vh - 6.6rem); border-top:1px dotted #aaa;">
+</iframe>

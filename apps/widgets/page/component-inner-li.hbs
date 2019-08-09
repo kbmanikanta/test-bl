@@ -1,0 +1,70 @@
+{{#component-config . type=bl:type}}
+	
+	<li class="inner-li {{#if bl:map.bl:queryProcessing}} relative-position {{/if}}"  {{#if bl:parentIsECC}}data-key="{{bl:key}}" {{inheritance-mark . mode="edit-page"}}{{/if}} data-sling-type="{{@component.type}}"  {{{@component.missingType}}}>
+
+		<span class="item-buttons" style="float:right;">
+			{{#if @component.hasDialog}}
+				<a  href="" data-target="bl-edit-dialog" class="edit-button bl-open-dialog-button waves-effect waves-light btn btn-floating ghosty enabled right" style="margin-right:10px;top:3px;"><i class="material-icons blue">edit</i></a>
+			{{/if}}
+
+			{{#if bl:parentIsECC}}
+				<a class="btn-floating ghosty enabled right delete-contained-item" style="margin-right:10px;top:3px;"><i class="material-icons red darken-2">delete</i></a>
+			{{/if}}
+
+			{{#if @component.hasDialog}}
+
+				{{#if bl:map}}
+					<a  href="" data-target="bl-edit-dialog" data-mapping-mode="true" class="bl-open-dialog-button ghosty icn-btn right" style="margin-right:10px; color:#777"><i class="material-icons" style="">location_searching</i></a>
+				{{/if}}
+
+				{{#if bl:annotations}}
+					<a  href="" data-target="bl-edit-dialog" data-annotations-mode="true" class="bl-open-dialog-button  ghosty icn-btn right" style="margin-right:10px; color:#777"><i class="material-icons">chat</i></a>
+				{{/if}}
+
+			{{/if}}
+		</span>
+
+		<i class="material-icons item-menu {{#if bl:parentIsECC}}ecc-entry{{/if}}">more_vert</i>
+
+		{{!-- <a class="btn-floating ghosty enabled right delete-contained-item" style="margin-right:10px;top:3px;"><i class="material-icons blue-grey lighten-2">menu</i></a> --}}
+
+		<div class="collapsible-header">
+			{{#if bl:parentIsECC}}
+				<i style="cursor:ns-resize;" class="drag-handle material-icons grey-text">reorder</i>
+			{{/if}}
+			<div class="item-title">
+				{{#if @component.type}}
+					{{entry-title . @component.type bl:key rtypeTitle=bl:rtypeTitle}}
+				{{else}}
+					{{prettyname bl:key}} <span style="color:#ddd;margin-left:30px;">{{@component.type}}</span>
+				{{/if}}
+			</div>
+		</div>
+
+		{{#unless bl:map.bl:queryProcessing}}
+			{{increment "bl:inner-li-depth"}}
+			<div class="collapsible-body inner-li-content"  style="overflow-x:scroll;padding:12px; {{#if bl:parentIsECC}}padding-left:24px;{{/if}} {{#ifOp @root.bl:inner-li-depth "iseven"}}background-color:#ededed{{/ifOp}}">
+					{{> page.component-body .}}
+					
+			</div>
+			{{increment "bl:inner-li-depth"}}
+
+		{{else}}
+			<div class="processing-query">
+				<p class="loading">
+					<span><i class="loading-spinner fa fa-refresh fa-spin"></i>  This query result is currently being updated</span>
+				</p>
+				<p class="done">
+					<span>Processing complete. Click <a href="javascript:window.location.reload(true)">here</a> to reload</span>
+				</p>
+			</div>
+		{{/unless}}
+		
+	</li>
+{{/component-config}}
+
+
+
+
+
+

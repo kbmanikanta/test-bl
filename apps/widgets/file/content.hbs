@@ -1,0 +1,5 @@
+\{{#if {{config.hbsValidName}} }}
+	<span class="file-link" data-name="{{config.name}}">\{{ {{config.hbsValidName}}.jcr:mimeType }}</span>
+\{{else}}
+	<i>No file</i>
+\{{/if}}

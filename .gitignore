@@ -1,0 +1,22 @@
+.DS_Store
+node_modules/
+bower_components/
+blacklight_modules/
+config/local.json
+.sass-cache/
+target/
+scrap/
+npm-debug.log
+fs-blacklight.zip
+
+## JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+*.iml
+.idea/
+
+## Sublime workspace files
+*.sublime-workspace
+
+
+## compiled file
+public/js/dist/edit-page-bundled.js
+public/js/dist/edit-page-bundled.min.js

@@ -1,0 +1,24 @@
+{{#each annotations}}
+	{{#each annotations}}
+		<div class="row annotations-widget z-depth-2">
+
+				<div class="col s12" style="background-color:{{color}};">
+					<table class="highlight" style="background-color: #fafafa;">
+					{{#each entries}}
+						{{#ifop author "&&" message}}
+							<tr>
+								<th style="width: 1%; white-space: nowrap">{{author}}</th>
+								<td style="white-space:normal;padding: 15px 5px;color:black;">{{message}}</td>
+							</tr>
+						{{/ifop}}
+					{{/each}}
+					</table>
+				</div>
+		</div>
+	{{/each}}
+
+{{else}}
+	<div class="row">
+		<ul class="collection"><li class="collection-item">No annotations found. Switch to Preview mode to add annotations.</li></ul>
+	</div>
+{{/each}}

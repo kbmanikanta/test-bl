@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script>
+			if(window.self !== window.top && window.top.CQ){
+				window.top.location.href = window.location.href;
+			}
+		</script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>{{first-of title-prefix "Blacklight"}}{{#if config.pageTitle}}: {{config.pageTitle}}{{/if}}</title>
+		{{!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
+		<link href="{{publicMount}}blacklight/edit/css/vendor/material-icons/material-icons.css" rel="stylesheet">
+
+		<link href="{{publicMount}}blacklight/edit/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+		<link rel="stylesheet" href="{{publicMount}}blacklight/edit/css/font-awesome.min.css">
+		{{#each scripts.css}}
+			<link href="{{../publicMount}}{{.}}" type="text/css" rel="stylesheet" media="screen,projection"/>
+		{{/each}}
+		<link href="{{publicMount}}blacklight/edit/css/blacklight.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+		<script>
+			{{#if blConfig}}
+				window.BL=window.BL||{}; 
+				window.BL.config={{as-json blConfig pretty="true"}}
+			{{/if}}
+		</script>
+
+
+	</head>
+	<body class="bl-page {{page-class}}" data-proxied="{{#if slingProxyType}}true{{/if}}" data-public-mount="{{publicMount}}" data-base-url="{{baseUrl}}">
+	<header>
+		<div class="navbar-fixed" style="display:none;">
+			<nav class="blue accent-2" role="navigation">
+				<div class="nav-wrapper container">
+					<div class="row">
+						<div class="col s12">
+						<a href="{{@root.blConfig.appsMount}}blacklight/edit/home"  data-activates="blacklight-top-menu" data-alignment="right" data-beloworigin="true" data-hover="false" data-constrainwidth="false" class="dropdown-button brand-logo right">
+							{{!-- <img src="{{publicMount}}blacklight/edit/images/blk-light.svg" style="height:38px;position:relative; top:12px; left:8px;"> --}}
+							<img src="{{publicMount}}blacklight/edit/images/wordmark-2.svg" style="border:none;">
+							{{!-- <img src="{{publicMount}}blacklight/edit/images/blacklight-bulb-white.svg" style="height:42px;position:relative; top:12px; left:-10px;"> --}}
+						</a> 
+
+						<div id="bl-breadcrumb" style="white-space: nowrap;">
+							{{#each config.breadcrumb}}
+								<a href="{{link}}" class="breadcrumb">{{{name}}}</a>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+			</nav>
+
+		</div>
+
+
+	{{#if @root.authorization.user}}
+	  <ul id="blacklight-top-menu" class="dropdown-content" style="line-height:22px;">		    
+			<li><a href="{{@root.blConfig.appsMount}}blacklight/edit/home"><i class="material-icons small">home</i>Home</a></li>
+
+			<li class="divider"></li>
+
+			<li><a href="javascript:;" class="disabled">
+				<i class="material-icons small" style="top:11px; height:48px;">face</i>
+				<div class="user-label">
+					<span style="font-size:10px;line-height:10px;color:#777;font-style:none;">Signed in as:</span><br>
+					{{@root.authorization.user}}
+				</div>
+			</a></li>
+
+		    <li><a href="{{@root.blConfig.appsMount}}blacklight/edit/sign-out"><i class="material-icons small">power_settings_new</i>Sign out</a></li>
+		</ul>
+	{{/if}}
+
+
+
+
+	</header>
+
+
+		{{{@partial-block}}}
+
+
+	<!--  Scripts-->
+	<script src="{{publicMount}}blacklight/edit/js/utils.js"></script>
+	<script src="{{publicMount}}blacklight/edit/js/vendor/jquery/jquery-2.1.1.min.js"></script>
+	<script src="{{publicMount}}blacklight/edit/js/vendor/jquery/jquery.throttle.js"></script>
+	<script src="{{publicMount}}blacklight/edit/js/vendor/materialize.js"></script>
+
+
+	{{#each scripts.js}}
+		<script src="{{.}}"></script>
+	{{/each}}
+
+
+
+
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{{first-of title "Blacklight Documentation"}}</title>
+		<link rel="stylesheet" href="{{@root.blConfig.publicMount}}blacklight/edit/js/vendor/highlight/agate.min.css">
+		<link rel="stylesheet" href="{{blConfig.publicMount}}blacklight/edit/css/doc.css"/>
+		{{#if includePreviewControls}}
+			<link type="text/css" rel="stylesheet" href="/alt/blacklight/edit/css/preview-controls.css">
+		{{/if}}
+	</head>
+
+	<body>
+		{{#if redirect}}
+			<b>Redirecting to:</b>&nbsp;  {{redirect}}
+			<script>
+				var parent=window.parent;
+				parent.BL.view.path("{{redirect}}");
+				parent.BL.view.applyPathAndMode();
+			</script>
+		{{/if}}
+
+
+		<div class="page-toc">
+		</div>
+
+		{{{body}}}
+		
+	</body>
+
+	<script src="{{@root.blConfig.publicMount}}blacklight/edit/js/vendor/jquery/jquery-2.1.1.min.js"></script>
+	<script src="{{@root.blConfig.publicMount}}blacklight/edit/js/vendor/highlight/highlight.min.js"></script>
+	<script src="{{@root.blConfig.publicMount}}blacklight/edit/js/doc-markdown-client.js"></script>
+
+	{{#if includePreviewControls}}
+		<script>
+			window.BL = window.BL || {}; 
+			window.BL.previewControlOptions = {editLinkOnly : true, pagePath : "{{path}}" };
+		</script>
+		<script src="/alt/apps/blacklight/edit/preview-controls-js/main.js"></script>
+	{{/if}}
+</html>	

@@ -1,0 +1,17 @@
+{
+   "folders":
+    [
+        {
+            "path": ".",
+            "folder_exclude_patterns": ["blacklight_modules", "node_modules", "node_shrinkwrap", "node_cache", ".sass-cache", "dist", "vendor"],
+            "file_exclude_patterns": ["*.sublime-project", "npm-shrinkwrap.json", "yarn.lock", "config.json.dist", ".gitignore","*.map", "*.min.js","*.min.css"]
+        }
+    ],
+    "settings":
+    {
+	"follow_symlinks":true
+    },
+    "build_systems":
+    [
+    ]
+}

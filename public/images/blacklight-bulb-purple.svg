@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="432px" height="612px" viewBox="0 0 432 612" enable-background="new 0 0 432 612" xml:space="preserve">
+<filter  height="130%" id="dropshadow">
+	<feGaussianBlur  in="SourceAlpha" stdDeviation="7"></feGaussianBlur>
+	<!--   stdDeviation is how much to blur   -->
+	<feOffset  dy="7" dx="7" result="offsetblur"></feOffset>
+	<!--   how much to offset   -->
+	<feComponentTransfer>
+		<feFuncA  type="linear" slope=".5"></feFuncA>
+	</feComponentTransfer>
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<!--   this contains the offset blurred image   -->
+		<feMergeNode  in="SourceGraphic"></feMergeNode>
+		<!--   this contains the element that the filter is applied to   -->
+	</feMerge>
+</filter>
+<g filter="url(#dropshadow)">
+	<path  class="bl-bulb" fill="#f0caf6" d="M210,19.249c-110.681,0-200.724,90.043-200.724,200.727c0,68.24,34.117,128.168,86.025,164.598v64.8
+		c0,15.77,12.906,28.68,28.673,28.68h172.049c15.764,0,28.674-12.91,28.674-28.68v-64.8c51.916-36.43,86.027-96.358,86.027-164.598
+		C410.725,109.292,320.664,19.249,210,19.249z M291.714,337.53l-24.361,17.225v65.943h-28.525v-89.289h-57.247l0.003,89.289h-28.938
+		v-65.943l-24.373-17.225c-38.718-26.946-61.652-70.821-61.652-117.554c0-79.144,64.235-143.377,143.378-143.377
+		c79.135,0,143.376,64.233,143.376,143.377C353.376,266.709,330.443,310.584,291.714,337.53z"/>
+	<path  class="bl-bulb" fill="#f0caf6" d="M123.975,564.07c0,15.767,12.913,28.681,28.672,28.681h114.706c15.761,0,28.671-12.914,28.671-28.681
+		v-28.669H123.975V564.07z"/>
+	<path  class="bl-bulb" fill="#efdff1" d="M210.374,127.506c-48.861,0-88.319,39.452-88.319,88.326c0,48.867,39.458,88.337,88.319,88.337
+		c48.877,0,88.329-39.47,88.329-88.337C298.703,166.958,259.251,127.506,210.374,127.506z"/>
+</g>
+</svg>

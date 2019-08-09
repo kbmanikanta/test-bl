@@ -1,0 +1,45 @@
+{{#> page.layout page-class="darker-tabs single-queue"}}
+
+	 <div class="row code-container" data-rtype="{{@root.rtype}}">
+    <div class="col s12">
+      <ul class="tabs">
+        {{#each ../status}}
+	        <li class="tab col s3">
+	        	<a {{#if @first}}class="active"{{/if}} href="#tab-{{@key}}" id="tab-{{@key}}-button">
+	        		{{prettyname @key}} 
+	        		<span class="job-count">{{#if (count .)}}{{count .}}{{/if}}</span> 
+	        	</a>
+	        </li>
+        {{/each}}
+      </ul>
+    </div>
+
+
+	{{#each ../status}}
+		<div id="tab-{{@key}}"  data-status="{{@key}}" class="col s12 tab-body">
+				<div class="collection z-depth-1">
+				{{#each .}}
+					<a href="#" class="job collection-item" data-link="{{link}}" data-id="{{id}}">{{@index}}: &nbsp; {{first-of title id}}</a>
+				{{else}}
+					<a class="collection-item active">No jobs in '{{@key}}.'</a>
+				{{/each}}
+				</div>
+		</div>
+	{{/each}}
+
+
+
+		{{#with ..}}
+		<div class="col s12">
+			<div class="status-panel">
+				<b>{{title}} queue</b>{{#if description}}: &nbsp; {{description}}{{/if}}
+				<div class="current-job">
+				</div>
+			</div>
+		</div>
+		{{/with}}
+	</div>
+
+
+
+{{/page.layout}}	

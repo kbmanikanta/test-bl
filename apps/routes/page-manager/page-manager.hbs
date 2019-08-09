@@ -1,0 +1,50 @@
+{{#> page.layout page-class="home iframed page-manager" title-prefix="Page Manager"}}
+
+
+	{{> page.framed-page }}
+
+	<!-- Main edit dialog -->
+	<div id="bl-edit-dialog" class="bl-widget modal modal-fixed-footer" >
+		<div class="modal-content">
+			Loading... <i class="fa fa-refresh fa-spin gray lighten-3"></i>
+		</div>
+		<div class="modal-footer">
+			<a class="bl-save-button waves-effect waves-light blue btn" style="margin-left:10px;" href="javascript:;">Save</a>
+			<a href="javascript:;" class="modal-close waves-effect waves-light red btn">Cancel</a>
+
+		  <div class="preloader-wrapper right small active spinner" style="top:5px; right:49px; display:none;">
+		    <div class="spinner-layer spinner-red-only">
+		      <div class="circle-clipper left">
+		        <div class="circle"></div>
+		      </div><div class="gap-patch">
+		        <div class="circle"></div>
+		      </div><div class="circle-clipper right">
+		        <div class="circle"></div>
+		      </div>
+		    </div>
+		  </div>
+
+
+		</div>
+	</div>
+
+
+
+
+	<!-- Main delete page dialog -->
+	<div id="bl-delete-page-dialog" class="bl-widget modal modal-fixed-footer">
+		<div style="font-size: 1rem;top: -5px; padding:5px; text-align:center;;color:white;text-transform:uppercase;" class="blue accent-2"><i class="material-icons dp32" style="top: 6px;position: relative;left: -8px;">warning</i> Confirm delete</div>
+
+
+		<div class="modal-content" style="margin:24px;">
+			Loading... <i class="fa fa-refresh fa-spin gray lighten-3"></i>
+		</div>
+		<div class="modal-footer">
+			<a class="bl-delete-button waves-effect waves-light  red btn" style="margin-left:10px;" href="javascript:;"><i class="material-icons left" style="margin-right: 12px;top: -1px;position: relative;left: 1px;">delete</i>Delete</a>
+			<a href="javascript:;" class="modal-close waves-effect waves-light blue btn">Cancel</a>
+		</div>
+	</div>
+
+    
+{{/page.layout}}
+

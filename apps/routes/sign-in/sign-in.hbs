@@ -1,0 +1,26 @@
+
+
+{{#> page.layout page-class="home landing"}}
+	
+	<div style="width:50%; margin-right:auto; margin-left:auto;margin-top:50px;">
+		<div class="card white horizontal">
+			<form method="POST">
+			<div class="card-stacked" style="margin:16px;">
+				<h3 style="font-size:180%; color:#0043b8; padding-top:20px;">Blacklight Content Management</h3>
+				{{#if @root.authorization.status}}
+					<span style="color:#911; font-style:italic">{{@root.authorization.status}}</span>
+				{{/if}}
+
+				<input type="text" style="margin-top:20px;" name="bl-user">
+				<input type="password" name="bl-pass">
+			</div>
+			<div class="card-action" style="text-align:right">
+				  <button class="btn waves-effect waves-light blue btn" type="submit" name="action">
+    					<i class="material-icons left">lightbulb_outline</i>Sign in
+				  </button>
+			</div>
+			</form>		
+		</div>
+	</div>
+{{/page.layout}}
+

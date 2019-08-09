@@ -1,0 +1,335 @@
+/* globals window,$,document */
+if(window.self !== window.top && window.top.CQ){
+	window.top.location.href = window.location.href;
+}
+
+/*
+	wrapping everything in this content loaded listener to
+	account for the possibility that this JS is included before
+	jQuery is included on the same page. In that cases we've got
+	some conflicting issues.
+*/
+document.addEventListener('DOMContentLoaded', function() {
+
+	window.BL = window.BL || {};
+	window.BL.appsMount="{{appsMount}}";
+	window.BL.proxyPrefix="{{blConfig.slingProxyPrefix}}";
+	window.BL.isFoss=!!("{{isFoss}}");
+	window.BL.author="{{author}}";
+	window.BL.previewControlOptions = window.BL.previewControlOptions || {}; 
+
+
+	window.BL.blacklightPreviewControls = function() {
+			"use strict";
+
+			//check for preview-controls.css. If not present, load it
+			var hideBulb=false;
+			if(window.self !== window.top && window.top.BL){
+					hideBulb=true;
+			}
+
+			var showAnnotations = window.BL.utils.getCookie('bl-show-annotations');
+			var $img=hideBulb?$("<span></span>"):$(
+			"<div id='bl-preview-actions' class='bl-preview " + (showAnnotations ? "showing-annotations" : "") +  "'><div>" +
+				"<a data-bl-tooltip='Edit Page' ><img id='bl-light-bulb' draggable='true' src='{{publicMount}}blacklight/edit/images/blacklight-bulb-white.svg'></a>" +
+				
+				(!window.BL.previewControlOptions.editLinkOnly ? (
+				"<ul>" +
+					"<li class='show-annotations' data-bl-tooltip='Show Annotations'><a class='btn-floating blue'><i class='material-icons'>chat</i></a></li>" +
+					"<li data-bl-tooltip='Hide Annotations'><a class='hide-annotations btn-floating blue' ><i class='material-icons'>chat_bubble_outline</i></a></li>" +
+				"</ul>" ) : "" ) +
+			"</div></div>");
+			$("body").append($img);
+
+			$img.find('img').on("dragstart", function(evt){
+					$img.css("display", "none");
+					setTimeout(function(){$img.css("display","block")}, 30000);
+			}).on("click", function(evt){
+					switchToEditMode()
+		})
+
+			$img.find('.show-annotations a').click(function(e){
+				localShowAnnotations();
+				e.preventDefault();
+			});
+			$img.find('.hide-annotations').click(function(e){
+				$img.removeClass('showing-annotations');
+				window.BL.utils.deleteCookie('bl-show-annotations');
+				window.BL.annotations.hideAnnotations()
+				e.preventDefault();
+			});
+
+			$(".bl-selector-replace").click(function(){
+					var desiredSelector = $(this).data("bl-selector");
+					document.location.assign(replaceSelector(document.location.href, desiredSelector));
+			})
+
+			polyfillReplaceHash();
+			setupEditOverlays($img);
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			function replaceSelector(url, desiredSelector){
+				var mainParts = url.split(/(?=[?#])/g);
+				var baseUrl = mainParts[0];
+
+				var parts= baseUrl.split("/");
+				var name = parts.pop();
+				if(!name){
+					name=parts.pop();
+				}
+
+				var bits = name.split(".");
+				var base = bits.shift();
+				var extension = bits.pop() || "html";
+				parts.push(base + "." + desiredSelector + (desiredSelector?".":"") + extension);
+				var fullPath = parts.join("/");
+
+				//add back the hash and query if they exist.
+				var addOns = mainParts.slice(1);
+				if(addOns) {
+					fullPath = fullPath + addOns.join("");
+				}
+				return fullPath;
+			}
+
+			window.BL.replaceSelector = replaceSelector;
+
+			///////////////////////////////////////////////////////////////////////////
+			function polyfillReplaceHash(){
+					if ('replaceState' in window.history) { // Yay, supported!
+						window.replaceHash = function(newhash) {
+								if ((''+newhash).charAt(0) !== '#') {newhash = '#' + newhash;}
+								window.history.replaceState('', '', newhash);
+						}
+					} else {
+						var hash = window.document.location.hash;
+						window.replaceHash = function(newhash) {
+								if (window.document.location.hash !== hash) {window.history.back();}
+								window.document.location.hash = newhash;
+						};
+					}
+			}
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			function switchToEditMode(){
+					var isProxied = !("{{blConfig.slingProxyPrefix}}");
+					if(isProxied){
+							window.BL.utils.setCookie("wcmmode", "edit", 7);
+							window.location.assign((window.BL.previewControlOptions.pagePath || document.location.pathname) + document.location.hash);
+							window.location.reload(true);
+					}else{
+							var editUrl=document.location.origin + "{{appsMount}}blacklight/edit/page" +(window.BL.previewControlOptions.pagePath || document.location.pathname) + document.location.hash;
+							window.location.href=editUrl;
+					}
+			}
+			window.BL.switchToEditMode = switchToEditMode;
+
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////
+			function setupEditOverlays($img){
+
+					var $document=$(document);
+					var $allEditables=$("[data-bl-edit]");
+					var $lastHighlighted;
+					var lastKeyWasAltKey=false;
+					var $overlay=$("<div id='bl-overlay' style='z-index:4400;cursor:context-menu;opacity:0.2;background-color:#39F;width:0;height:0;position:absolute;left:0;top:0'></div>")
+					var $contextMenu = $("<ul id='bl-context-menu'><li id='bl-add-annotation'><i class='material-icons'>chat</i>Add Annotation</li></ul>");
+					$document.find("body").append($overlay);
+					$document.find("body").append($contextMenu);
+
+					//////////////////////////////////////////////////////////////
+					$overlay.click(function(e){
+							var config=$overlay.data("bl-edit");
+							window.replaceHash("#!" + config.slingPath.replace(/^\//,""));
+							switchToEditMode();
+					});
+
+					$overlay.contextmenu(function (event) {
+						// Avoid the real one
+						event.preventDefault();
+
+						// Show contextmenu in the right position (the mouse)
+						$contextMenu.show().css({
+							top: event.pageY + "px",
+							left: event.pageX + "px"
+						});
+					});
+
+					// If the document is clicked somewhere
+					$(document).bind("mousedown", function (e) {
+						// If the clicked element is not the menu
+						if (!$(e.target).parents('#bl-context-menu').length > 0) {
+							// Hide it
+							$contextMenu.hide();
+						}
+					});
+
+					$contextMenu.find('#bl-add-annotation').click(function(e){
+						console.log('add annotation');
+						$contextMenu.hide();
+						//can't add annotations if annotations aren't loaded
+						localShowAnnotations(function(){
+							var path = document.location.pathname + '/jcr:content' + $overlay.data("bl-edit").slingPath;
+							var annotationData =  {x: e.pageX, y: e.pageY, width: 150, height: 100, color: '#89fff9'};
+							window.BL.annotations.create(path, annotationData, function(err, path){
+								if(err){console.log('err')}else{
+									var $newContainer = $('<div></div>', {css: {position:'absolute', top: 0, left: 0}});
+									window.BL.annotations.renderAnnotation($newContainer, annotationData, path);
+									$('body').append($newContainer);
+								}
+							});
+						});
+					});
+
+					$allEditables.addClass("bl-edit");
+
+
+					//////////////////////////////////////////////////////////////
+					function hightlightIfOverEditable(e){
+							if(e && e.pageX){
+									var x=e.pageX-window.pageXOffset, y=e.pageY-window.pageYOffset;
+									var nowOver = document.elementsFromPoint(x, y);
+									var found, cur;
+									for(var i=0; i < nowOver.length && !found; i++){
+											cur=nowOver[i];
+											if(cur.attributes && cur.attributes["data-bl-edit"]){
+													found=$(cur);
+											}
+									}
+
+									if(found && (!$lastHighlighted || !$lastHighlighted.is(found))){
+											var $el=found;
+											var offset=$el.offset();
+											var styles={width:$el.outerWidth(), height:$el.outerHeight(), top:offset.top, left:offset.left, display: "block"};
+											$overlay.css(styles);
+											$overlay.data("bl-edit", $el.data("bl-edit"));
+											$lastHighlighted=$el;
+									}else{
+											if(!found && $lastHighlighted){
+													$overlay.css({height:0, width:0});
+													$contextMenu.hide();
+													$lastHighlighted=null;
+											}
+									}
+							}
+					}
+
+
+					//////////////////////////////////////////////////////////////
+					$document.keydown(function (e) {
+							if(e.altKey) {
+									window.BL.triggerEditMode();
+							}
+					});
+
+					//////////////////////////////////////////////////////////////
+					$document.keyup(function (e) {
+							if(lastKeyWasAltKey) {
+									$document.off("mousemove.bl-edit");
+									$overlay.css({height:0, width:0});
+									$contextMenu.hide();
+									lastKeyWasAltKey=false;
+									$lastHighlighted=null;
+									$img.show()
+							}
+					});
+
+					window.BL.triggerEditMode = function(){
+							lastKeyWasAltKey=true;
+							$document.on("mousemove.bl-edit", function(e){
+									hightlightIfOverEditable(e);
+							});
+							$img.hide();
+					}
+
+			}
+
+			///////////////////////////
+			function localShowAnnotations(cb){
+				if(window.BL.annotations){
+					//the JS and annotations have already been loaded
+					window.BL.annotations.showAnnotations();
+					if(cb){cb();}
+				}else{
+					//need to load the annotations.js and get the annotations
+					window.BL.loadLibrary('{{publicMount}}blacklight/edit/js/annotations.js', function(){
+						window.BL.annotations.getAnnotations(function(annotations){
+							window.BL.annotations.renderAnnotations(annotations);
+							if(cb){cb();}
+						});
+					});
+				}
+				$img.addClass('showing-annotations');
+				window.BL.utils.setCookie('bl-show-annotations', true);
+			}
+
+			//load the annotations if cookie value set
+			if(showAnnotations){localShowAnnotations()}
+
+			var $blActions = $('#bl-preview-actions');
+
+			// Hover behaviour: make sure this doesn't work on .click-to-toggle FABs!
+			$(document).on('mouseenter','#bl-light-bulb, #bl-preview-actions, #bl-preview-actions ul', function(e) {
+				$blActions.addClass('active');
+			});
+			$(document).on('mouseleave', '#bl-preview-actions,  #bl-preview-actions ul', function(e) {
+				$blActions.removeClass('active');
+			});
+
+
+	}
+
+	window.BL.librariesToLoad = [];
+	window.BL.loadLibrary = function(addToLoad, cb){
+		if(addToLoad || window.BL.librariesToLoad.length){
+			var library = addToLoad || window.BL.librariesToLoad.shift() ;
+			var headTag = document.getElementsByTagName("head")[0];
+
+			if(library.endsWith('.js')){
+				var jqTag = document.createElement('script');
+				jqTag.type = 'text/javascript';
+				jqTag.src = library;
+				jqTag.onload = cb || function(){window.BL.loadLibrary()};
+				headTag.appendChild(jqTag);
+			}else if(library.endsWith('.css')){
+				var link  = document.createElement('link');
+				link.rel  = 'stylesheet';
+				link.type = 'text/css';
+				link.href = library;
+				link.media = 'all';
+				link.onload = onload = cb || function(){window.BL.loadLibrary()};
+				headTag.appendChild(link);
+			}else{
+				throw 'Undefined library type received: ' + library;
+			}
+		}else{
+			window.BL.blacklightPreviewControls();
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	if(!document.querySelector('link[href$="preview-controls.css"]')){
+		window.BL.librariesToLoad.push('{{publicMount}}blacklight/edit/css/preview-controls.css');
+	}
+
+
+
+
+	if(typeof jQuery==='undefined') {
+		window.BL.librariesToLoad.push('//code.jquery.com/jquery-1.12.0.min.js');
+		window.BL.librariesToLoad.push('{{publicMount}}fshr/shared/js/jquery-xss-protect.js');
+		window.BL.librariesToLoad.push('//code.jquery.com/ui/1.12.1/jquery-ui.min.js');
+	}else if(!jQuery.ui){
+		window.BL.librariesToLoad.push('//code.jquery.com/ui/1.12.1/jquery-ui.min.js');
+	}
+
+	window.BL.librariesToLoad.push('{{publicMount}}blacklight/edit/js/utils.js');
+
+	if(!window.BL.isFoss){
+		window.BL.librariesToLoad.push(window.BL.proxyPrefix + '/etc/clientlibs/granite/jquery/granite/csrf.js');
+	}
+
+
+	window.BL.loadLibrary();
+
+}, false);

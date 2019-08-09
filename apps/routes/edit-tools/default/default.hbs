@@ -1,0 +1,11 @@
+{{#> page.layout}}
+	<div class="section">
+		<div class="container">
+			<div class="collection">
+				{{#each @root.treeContent}}
+					<a href="{{key}}" class="collection-item blue accent-2 " style="color:white;">{{title}}</a>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+{{/page.layout}}

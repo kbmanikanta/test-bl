@@ -1,0 +1,11 @@
+
+<div class="bl-widget bl-init" style="margin-bottom:25px;" data-type="richtext" data-key="{{config.key}}">
+	<label for="{{safename config.name}}_\{{safename @root._id}}" style="font-size:.9rem; position:relative; top:3px;">{{config.fieldLabel}}</label>
+	<div class="z-depth-1 bl-mce">
+		<div  class="richedit"   id="{{safename config.name}}_\{{safename @root._id}}">\{{{ {{config.hbsValidName}} }}}</div>
+	</div>
+	\{{#if "{{quote config.fieldDescription}}" }}
+		<span class="field-description bl-textfield" style="top:0;">{{config.fieldDescription}}</span>
+	\{{/if}}
+</div>
+

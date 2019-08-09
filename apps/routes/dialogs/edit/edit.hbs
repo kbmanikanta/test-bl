@@ -1,0 +1,46 @@
+
+<div style="font-size: 1rem;top: -5px; padding:5px; text-align:center;;color:white;text-transform:uppercase;" class="blue accent-2">{{title}}</div>
+
+<form style="padding:0; margin:0;" method="POST" onsubmit="return false">	
+	<div class="widget-body">
+		{{{body}}}
+	</div>
+
+	<div class="mapping-body" style="display:none;">
+		{{{mapping}}}
+	</div>
+
+</form>
+
+<script type="text/javascript">
+	(function(){
+
+		var widgets={
+		{{#each widgetConfigs}}			
+			'{{@key}}': {
+				{{#each .}}
+					'{{@key}}': {{as-json .}}{{#unless @last}},{{/unless}}
+				{{/each}}
+			}{{#unless @last}},{{/unless}}
+		{{/each}}
+
+		}
+
+
+		var dialogConfig={
+			{{#each dialogConfig}}			
+				'{{@key}}': {{as-json .}}{{#unless @last}},{{/unless}}
+			{{/each}}
+
+		}
+
+		var blMaps = {{as-json blMaps}}
+		
+		var $form=$("#{{dialogConfig.modalId}}").find("form")
+		$form.data("widgets", widgets);
+		$form.data("dialog-config", dialogConfig); 
+		$form.data("blMaps", blMaps);
+	})()
+</script>
+	
+

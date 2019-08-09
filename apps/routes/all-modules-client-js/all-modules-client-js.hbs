@@ -1,0 +1,34 @@
+
+window.BL=window.BL || {};
+
+window.BL.modules=window.BL.modules||{};
+
+{{#each sites}}
+	window.BL.modules["{{.}}"] = {};
+{{/each}}
+
+
+{{#each helpers}}
+
+/***************************************************************************/
+// MODULE FOR {{@key}}   
+// Path: {{path}}                                   
+/***************************************************************************/
+(function(module){
+	{{{code}}}
+	
+	//// Blacklight module assignment:
+	window.BL.modules["{{site}}"]["{{module}}"] = module.exports;
+})({exports:{}});
+
+/***************************************************************************/
+// END OF CODE FROM PATH: {{path}}                                   
+/***************************************************************************/
+
+
+
+
+
+
+
+{{/each}}

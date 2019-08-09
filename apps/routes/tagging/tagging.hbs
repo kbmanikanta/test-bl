@@ -1,0 +1,57 @@
+{{#> page.layout page-class="home iframed generic-iframe"}}
+
+	{{> page.framed-page }}
+
+
+	<!-- Main add tag dialog -->
+	<div id="bl-add-tag-dialog" class="bl-widget modal modal-fixed-footer" >
+		<div class="modal-content">
+			<div style="font-size: 1rem;top: -5px; padding:5px; text-align:center;;color:white;text-transform:uppercase;" class="blue accent-2">Add New tag</div>
+			<form>
+			<div class="row" style="padding:24px;">
+				<div class="col s12">
+
+					<div class="bl-widget input-field">
+						<input value="" id="jcr_title" name="jcr_title" type="text" class="validate valid" style="background-color:#eee;padding-left:5px;">
+						<label for="jcr_title" class="active">Tag Title</label>
+						<span class="field-description bl-textfield">
+							Example: "My Tag"<br>
+						</span>
+					</div>
+
+					<div class="bl-widget input-field">
+						<input value="" id="add_path" name="add_path" type="text" class="validate valid" style="background-color:#eee;padding-left:5px;">
+						<label for="add_path" class="active">Tag Path Name</label>
+						<span class="field-description bl-textfield">
+							Example: "my-tag"<br>
+							Lowercase preferred. No spaces or special characters.
+						</span>
+					</div>
+				</div>
+			</div>
+
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a class="bl-add-button waves-effect waves-light blue btn" style="margin-left:10px;" href="javascript:;"><i class="material-icons left" style="margin-right: 12px;top: -1px;position: relative;left: 1px;">add_circle</i>Add tag</a>
+			<a href="javascript:;" class="modal-close waves-effect waves-light red btn">Cancel</a>
+		</div>
+	</div>
+
+
+
+	<!-- Main delete tag dialog -->
+	<div id="bl-delete-tag-dialog" class="bl-widget modal modal-fixed-footer">
+		<div style="font-size: 1rem;top: -5px; padding:5px; text-align:center;;color:white;text-transform:uppercase;" class="blue accent-2"><i class="material-icons dp32" style="top: 6px;position: relative;left: -8px;">warning</i> Confirm delete</div>
+
+
+		<div class="modal-content" style="margin:24px;">
+			Loading... <i class="fa fa-refresh fa-spin gray lighten-3"></i>
+		</div>
+		<div class="modal-footer">
+			<a class="bl-delete-button waves-effect waves-light  red btn" style="margin-left:10px;" href="javascript:;"><i class="material-icons left" style="margin-right: 12px;top: -1px;position: relative;left: 1px;">delete</i>Delete</a>
+			<a href="javascript:;" class="modal-close waves-effect waves-light blue btn">Cancel</a>
+		</div>
+	</div>
+
+{{/page.layout}}

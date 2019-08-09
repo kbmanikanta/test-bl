@@ -1,0 +1,39 @@
+
+
+<div  class="bl-widget bl-init" data-type="composite" data-key="{{config.key}}"  >
+<div style="background-color:#fafafa">
+	<ul class="collapsible sortable" data-collapsible="expandable">
+  		\{{#each {{config.hbsValidName}} }}
+  			\{{#ifOp @key "nonmeta"}}
+
+				<li>
+					<a class="btn-floating enabled right delete-composite delete-button" style="margin-right:10px;top:3px;"><i class="material-icons red darken-2">delete</i></a>
+					<a  href="" class="waves-effect waves-light btn btn-floating enabled right" style="margin-right:10px;top:3px;"><i class="material-icons blue">edit</i></a>
+					<div class="collapsible-header">
+						<i class="drag-handle material-icons">toc</i>
+						<span style="font-size:1.2em;" class="red-text text-darken-4">
+							\{{#if {{config.titleField}}  }} 
+			      					\{{ {{config.titleField}}  }}
+			      			\{{else}}  
+			      					{{config.fieldLabel}} #\{{@index}}
+			      			\{{/if}}
+		      			</span>
+					</div>
+					<div class="collapsible-body" style="padding-left:52px; margin-right:15px;">
+						<table class="bordered highlighted" style="margin-bottom:14px;">
+						{{#each config.fieldConfigs}}
+					  		{{#ifOp @key "nonmeta"}}
+					  			<tr><td>{{fieldLabel}}</td><td>{{get-template . "content"}}</td></tr>
+					  		{{/ifOp}}
+				  		{{/each}}
+				  		</table>
+
+					</div>
+				</li>
+			\{{/ifOp}}
+  		\{{/each}}
+  </ul>
+  <a class="btn-floating enabled right add-button" style="margin-right:-24px;top:-29px;"><i class="material-icons green">add</i></a>
+</div>
+</div>
+

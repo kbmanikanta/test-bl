@@ -1,0 +1,12 @@
+
+
+				 
+<div  class="bl-widget bl-init" data-type="tags" data-key="{{config.key}}" data-value='\{{as-json {{config.hbsValidName}} }}' {{#if config.readonly}} data-readonly="true"{{/if}} style="margin-bottom:32px;" >
+	
+	<label for="{{safename config.name}}_\{{safename @root._id}}" style="position:relative; top:5px;">{{config.fieldLabel}}</label>
+	<div id="{{safename config.name}}_\{{safename @root._id}}" class="chips"></div>
+
+	\{{#if "{{quote config.fieldDescription}}" }}
+		<span class="field-description bl-textfield">{{config.fieldDescription}}</span>
+	\{{/if}}
+</div>

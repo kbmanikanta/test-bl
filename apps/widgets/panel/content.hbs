@@ -1,0 +1,12 @@
+
+{{#unless config.hide_on_edit_page}}
+	<div style="margin:0px;border:1px solid #ddd; background-color:#fff; padding:8px;" class="">
+		<table class="highlight bordered panel-content"><tbody>
+			{{#each config.items}}
+				{{#unless hide_on_edit_page}}	
+					<tr class="{{widget}}" data-name="{{name}}">{{#ifop widget "==" "fieldset"}}<td colspan="2" style="padding-top:20px;">{{else}}<td>{{fieldLabel}}</td><td>{{/ifop}}{{get-template . "content"}}</td></tr>			
+				{{/unless}}
+			{{/each}}
+		</tbody></table>
+	</div>
+{{/unless}}
