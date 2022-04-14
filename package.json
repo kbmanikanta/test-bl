@@ -4,7 +4,7 @@
   "description": "",
   "main": "content.js",
   "dependencies": {
-    "async": "^2.0.1",
+    "async": "^3.2.2",
     "cookie-parser": "^1.4.3",
     "glob": "^7.1.1",
     "json5": "^0.5.1",
